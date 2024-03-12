@@ -1,0 +1,8 @@
+.env
+docker-compose.override.yml
+plugins/*
+mu-plugins/*
+themes/*
+uploads/*
+
+!**/.gitkeep

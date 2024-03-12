@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+    wordpress:
+        labels:
+            - "traefik.enable=true"
+            - "traefik.docker.network=web-applications"
+            - "traefik.http.routers.webendpoint.rule=Host(`test.local`)"
+        networks:
+            - web-applications
+    db:
+        ports:
+            - "3368:3306"
+networks:
+  web-applications:
+    name: web-applications
+    external: true
