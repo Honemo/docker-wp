@@ -44,11 +44,6 @@ services:
       - ./logs:/var/www/html/wp-content/logs
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
       - ./error-logging.ini:/usr/local/etc/php/conf.d/error-logging.ini
-    labels:
-      chadburn.enabled: "true"
-      chadburn.job-exec.cron.use: "docker_runtime_user"
-      chadburn.job-exec.cron.schedule: "@every 30m"
-      chadburn.job-exec.cron.command: "php /var/www/html/wp-cron.php"
     networks:
       - wordpress
 
@@ -62,17 +57,6 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: ${SQLDATABASE_ROOT_PASSWORD}
     volumes:
       - db:/var/lib/mysql
-    networks:
-      - wordpress
-
-  chadburn:
-    image: premoweb/chadburn:latest
-    restart: always
-    depends_on:
-      - wordpress
-    command:  daemon
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - wordpress
 

@@ -3,9 +3,13 @@ version: "3.8"
 services:
     wordpress:
         labels:
-            - "traefik.enable=true"
-            - "traefik.docker.network=web-applications"
-            - "traefik.http.routers.webendpoint.rule=Host(`test.local`)"
+            traefik.enable: "true"
+            traefik.docker.network: "web-applications"
+            traefik.http.routers.webendpoint.rule: "Host(`test.local`)"
+            chadburn.enabled: "true"
+            chadburn.job-exec.cron.use: "docker_runtime_user"
+            chadburn.job-exec.cron.schedule: "@every 30m"
+            chadburn.job-exec.cron.command: "php /var/www/html/wp-cron.php"
         networks:
             - web-applications
     db:
